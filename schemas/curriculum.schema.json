@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CurriculumNode",
+  "type": "object",
+  "required": [
+    "id",
+    "label",
+    "path",
+    "kind"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "path": {
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "root",
+        "track",
+        "stage",
+        "day",
+        "lesson",
+        "exercise"
+      ]
+    }
+  }
+}
