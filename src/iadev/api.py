@@ -6,7 +6,7 @@ from .service import KnowledgeService
 def create_app(db: Path | None = None):
     try:
         from fastapi import FastAPI, HTTPException, Query
-            except ImportError as exc:
+    except ImportError as exc:
         raise RuntimeError("Install optional API dependencies: pip install -e '.[api]'") from exc
     app = FastAPI(title="Agntia IA Dev Knowledge API", version="0.1.0")
     service = KnowledgeService(db or Path(os.getenv("IADEV_DB", "data/indexes/knowledge.sqlite")))
