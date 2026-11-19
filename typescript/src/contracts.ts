@@ -1,0 +1,13 @@
+import { z } from "zod";
+export const searchInputSchema=z.strictObject({query:z.string().trim().min(1).max(1000),limit:z.number().int().min(1).max(50).default(10)});
+export const contextInputSchema=z.strictObject({query:z.string().trim().min(1).max(1000)});
+export const sourceIdSchema=z.string().regex(/^[A-Za-z0-9_-]{1,128}$/);
+export const curriculumResponseSchema=z.strictObject({nodes:z.array(z.record(z.string(),z.unknown())).max(10000)});
+export const searchResponseSchema=z.strictObject({hits:z.array(z.record(z.string(),z.unknown())).max(50)});
+export const sourceResponseSchema=z.record(z.string(),z.unknown());
+export const contextResponseSchema=z.strictObject({query:z.string(),instructions:z.string(),passages:z.array(z.unknown()).max(100)});
+export const healthResponseSchema=z.strictObject({status:z.string(),llm_configured:z.boolean()});
+export type SearchInput=z.input<typeof searchInputSchema>;
+export type ContextInput=z.input<typeof contextInputSchema>;
+export type SearchResponse=z.infer<typeof searchResponseSchema>;
+export type ContextResponse=z.infer<typeof contextResponseSchema>;

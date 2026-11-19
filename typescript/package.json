@@ -1,0 +1,32 @@
+{
+  "name": "@agntia/iadev",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "type": "module",
+  "description": "Server-only typed knowledge SDK for Agntia",
+  "exports": {
+    ".": "./dist/index.js",
+    "./hono": "./dist/hono.js",
+    "./agent-tools": "./dist/agent-tools.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "hono": "^4.11.4",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.2",
+    "@types/node": "^24.0.0"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}

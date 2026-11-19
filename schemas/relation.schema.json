@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KnowledgeRelation",
+  "type": "object",
+  "required": [
+    "from_id",
+    "to_id",
+    "type",
+    "evidence"
+  ],
+  "properties": {
+    "from_id": {
+      "type": "string"
+    },
+    "to_id": {
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "prerequisite_of",
+        "related_to",
+        "part_of",
+        "contrasts_with",
+        "applied_in",
+        "motivated_by"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
