@@ -6,14 +6,10 @@ from .service import KnowledgeService
 def create_app(db: Path | None = None):
     try:
         from fastapi import FastAPI, HTTPException, Query
-        from pydantic import BaseModel
-    except ImportError as exc:
+            except ImportError as exc:
         raise RuntimeError("Install optional API dependencies: pip install -e '.[api]'") from exc
     app = FastAPI(title="Agntia IA Dev Knowledge API", version="0.1.0")
     service = KnowledgeService(db or Path(os.getenv("IADEV_DB", "data/indexes/knowledge.sqlite")))
-
-    class AskRequest(BaseModel):
-        query: str
 
     @app.get("/health")
     def health():
@@ -35,11 +31,14 @@ def create_app(db: Path | None = None):
         return result
 
     @app.post("/v1/context")
-    def context(req: AskRequest):
-        return service.context(req.query)
+    def context(req: dict):
+        query = req.get("query", "")
+        if not isinstance(query, str) or not query.strip():
+            raise HTTPException(status_code=422, detail="query must be a nonempty string")
+        return service.context(query)
 
     @app.post("/v1/answer")
-    def answer(req: AskRequest):
+    def answer(req: dict):
         raise HTTPException(status_code=501, detail="LLM provider not wired yet")
 
     return app
